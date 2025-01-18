@@ -1,8 +1,7 @@
 import axios from "axios";
 export const getPlannerData = async (tasks, hobbies) => {
-  console.log({tasks: tasks}, {filteredHobbies: hobbies});
   try {
-    
+    console.log(hobbies)
     const res = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
         import.meta.env.VITE_API_KEY
@@ -61,13 +60,12 @@ IMPORTANT: Your responses should ONLY contain JSON objects. DO NOT INCLUDE ANY O
 Here's a sample response you might get:
 
 Tasks:
-${getPromptString(taskDescriptions)}
+${getPromptString(tasks)}
 
 
 Hobbies:
 ${getHobbyPromptString(hobbies)}
 
-${hobbiesDescriptions}
 `,
               },
             ],
@@ -100,14 +98,14 @@ const getPromptString = (tasks) => {
 
 
 const getHobbyPromptString = (hobbies) => {
-  
+  console.log(hobbies.hobbies)
   let prompt = "";
   let index = 1;
   hobbies.hobbies.forEach(hobby => {
+    console.log("hobby"+hobby.hobbyName)
     prompt += `${index}) ${hobby.hobbyName}\n`
     index++;
   });
-  console.log(prompt);
   return prompt;
 }
 
@@ -147,7 +145,7 @@ Your task is to return an array object in the form:
 
 
 {
-  [  [
+  [  
       {
 
           "hobbyName":"..."
@@ -164,9 +162,6 @@ Your task is to return an array object in the form:
 
       }
   ]        
-    ...
-  ]
-
 }
 
 
