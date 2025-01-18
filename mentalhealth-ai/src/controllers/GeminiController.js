@@ -1,6 +1,7 @@
 import axios from "axios";
-export const getPlannerData = async () => {
-  console.log("Hello from GeminiController");
+export const getPlannerData = async (tasks, hobbies) => {
+  console.log(tasks, hobbies);
+
   try {
     const res = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
@@ -94,4 +95,101 @@ Hobbies:
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getHobbiesData = (hobbies) => {
+  if (hobbies.length === 0) {
+    alert("Please add at least one hobby before submitting.");
+    return;
+  }
+
+  const hobbyNames = hobbies.map((h) => h.name).join("\n");
+
+  axios
+    .post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: `I will give you a list of hobbies in this format:
+
+Hobbies:
+
+1) Hobby 1
+
+2) Hobby 2
+
+3) Hobby 3
+
+etc...
+
+
+Your task is to return a JSON object in the form:
+
+
+{
+
+  {
+
+      "hobbyName":"..."
+
+  }
+
+  {
+
+      "hobbyName":"..."
+
+  }
+
+  {
+
+      "hobbyName":"..."
+
+  }
+
+  ...
+
+}
+
+
+If there are any harmful activities the user inputs, you should replace them with non-harmful activities in your response that are maybe related to the other non-harmful activities the user provided.
+
+
+IMPORTANT: Your response should ONLY contain a JSON object. DO NOT INCLUDE ANY OTHER TEXT IN YOUR RESPONSE
+
+
+Here's the hobbies:
+
+${hobbyNames}
+`,
+              },
+            ],
+          },
+        ],
+      }
+    )
+    .then((res) => {
+      console.log("API Response:", res.data);
+      const raw_response = res.data.candidates[0].content.parts[0].text;
+      const cleaned_response = raw_response
+        .replace("```json", "")
+        .replace("```", "")
+        .trim();
+      const result = JSON.parse(cleaned_response);
+      return {
+        message:
+          "You entered an inappropiate hobby. I changed it to accommodate your needs",
+        result,
+      };
+    })
+    .catch((err) => {
+      console.error("Error categorizing hobbies:", err);
+      alert(
+        "There was an error processing your request. Please try again later."
+      );
+    });
 };
