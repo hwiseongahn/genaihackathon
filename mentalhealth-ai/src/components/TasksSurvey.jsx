@@ -42,10 +42,10 @@ return (
                                         required
                                     />
                                 </div>
-                                <div className='col-md-3 p-0'>
+                                <div className='col-md-3 d-flex flex-column p-0'>
                                     <label htmlFor="stress-level" className="form-label">Stress Level</label>
                                     <select
-                                        className="form-select bg-white text-secondary"
+                                        className="form-select bg-white text-secondary flex-grow-1"
                                         id="stress-level"
                                         value={level}
                                         onChange={(e) => setLevel(e.target.value)}
@@ -59,17 +59,17 @@ return (
                                         ))}
                                     </select>
                                 </div>
-                                <div className='col-md-4 mb-3'>
-                                <label htmlFor='due-date' className='form-label'>Enter due date:</label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    id="due-date"
-                                    value={dueDate}
-                                    onChange={(e) => setDueDate(e.target.value)}
-                                    placeholder="Enter your duedate"
-                                    required
-                                />
+                                <div className='col-md-4'>
+                                    <label htmlFor='due-date' className='form-label'>Enter due date:</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        id="due-date"
+                                        value={dueDate}
+                                        onChange={(e) => setDueDate(e.target.value)}
+                                        placeholder="Enter your due date"
+                                        required
+                                    />
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary w-100">Submit</button>
