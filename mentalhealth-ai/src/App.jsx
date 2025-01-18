@@ -18,7 +18,8 @@ function App() {
     const [showDayPlanner, setShowDayPlanner] = useState(false);
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [level, setLevel] = useState('');
+    const [stress, setStress] = useState('');
+    const [priority, setPriority] = useState('');
     const [tasks, setTasks] = useState([]);
 
     return (
@@ -28,8 +29,10 @@ function App() {
                 <TasksSurvey 
                     task={task}
                     setTask={setTask}
-                    level={level}
-                    setLevel={setLevel}
+                    stress={stress}
+                    setStress={setStress}
+                    priority={priority}
+                    setPriority={setPriority}
                     dueDate={dueDate}
                     setDueDate={setDueDate}
                     tasks={tasks}
