@@ -12,6 +12,7 @@ function HobbiesSurvey({
   setShowHobbies,
   setShowDayPlanner
 }) {
+  // Function to add hobby
   const handleAddHobby = (e) => {
     e.preventDefault();
     if (hobby) {
@@ -20,12 +21,19 @@ function HobbiesSurvey({
     }
   };
 
+  // Function to remove hobby
+  const handleRemoveHobby = (id) => {
+    const updatedHobbies = hobbies.filter((hobby) => hobby.id !== id);
+    setHobbies(updatedHobbies);
+  };
+
+  // Submit hobbies
   const handleSubmitHobbies = () => {
-    const res = getHobbiesData(hobbies)
-    console.log(res)
+    const res = getHobbiesData(hobbies);
+    console.log(res);
     setShowHobbies(false);
     setShowDayPlanner(true);
-  }
+  };
 
   return (
     <div className="container mt-5 vw-100">
@@ -61,8 +69,14 @@ function HobbiesSurvey({
                   <h3>Hobbies List:</h3>
                   <ul className="list-group mb-3">
                     {hobbies.map((h) => (
-                      <li key={h.id} className="list-group-item">
+                      <li key={h.id} className="list-group-item d-flex justify-content-between">
                         {h.name}
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleRemoveHobby(h.id)}
+                        >
+                          Remove
+                        </button>
                       </li>
                     ))}
                   </ul>
