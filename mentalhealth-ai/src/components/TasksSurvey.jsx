@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-const StressTracker = () => {
+function TasksSurvey () {
   const [task, setTask] = useState('');
   const [level, setLevel] = useState('');
   const [tasks, setTasks] = useState([]);
@@ -60,21 +60,16 @@ const StressTracker = () => {
                   </select>
                 </div>
                 <div className='mb-3'>
-                    <label htmlFor='due-date' className='form-label'>Stress Level</label>
-                    <select
-                        className='form-select'
-                        id='due-date'
-                        value={level}f
-                        onChange={(e) => setLevel(e.target.value)}
-                        required
-                    >
-                        <option value=''>Enter due date</option>
-                        {[1, 2, 3, 4, 5].map((num) => (
-                        <option key={num} value={num.toString()}>
-                            {num} - {num === 1 ? 'Low' : num === 5 ? 'High' : 'Medium'}
-                        </option>
-                        ))}
-                    </select>
+                    <label htmlFor='due-date' className='form-label'>Enter due date:</label>
+                    <input
+                    type="text"
+                    className="form-control"
+                    id="task"
+                    value={task}
+                    onChange={(e) => setTask(e.target.value)}
+                    placeholder="Enter your stressful task"
+                    required
+                  />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Submit</button>
               </form>
@@ -102,4 +97,4 @@ const StressTracker = () => {
   );
 };
 
-export default StressTracker;
+export default TasksSurvey;
