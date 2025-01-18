@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from '../assets/favicon.svg';
 
 
-function TasksSurvey ({task, setTask, level, setLevel, dueDate, setDueDate, tasks, setTasks, tasksDone, setTasksDone}) {
+function TasksSurvey ({task, setTask, level, setLevel, dueDate, setDueDate, tasks, setTasks, setShowTasks, setShowHobbies}) {
   
 
   const handleSubmit = (e) => {
@@ -12,18 +12,25 @@ function TasksSurvey ({task, setTask, level, setLevel, dueDate, setDueDate, task
         id: Date.now(),
         task: task,
         level: parseInt(level),
-        dueDate: dueDate
+        dueDate: dueDate,
       };
       setTasks([...tasks, newTask]);
-      setTask('');
-      setLevel('');
-      setDueDate('');
+      setTask("");
+      setLevel("");
+      setDueDate("");
       
     }
   };
+  const handleSubmitTaskList = () => {
+    setShowTasks(false);
+    setShowHobbies(true);
+
+  }
+
+  
  
 
-return (
+  return (
 
     <div className="container mt-5 vw-100">
         <div className="row justify-content-center w-100">
@@ -101,11 +108,11 @@ return (
                         )}
                     </div>
                 </div>
-                <button onClick={() => setTasksDone(true)} className="btn btn-primary w-100 mt-3">Submit</button>
+                <button onClick={() => {setShowTasks(false); setShowHobbies(true);}} className="btn btn-primary w-100 mt-3">Submit</button>
             </div>
         </div>
     </div>
-);
-};
+  );
+}
 
 export default TasksSurvey;

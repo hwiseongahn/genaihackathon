@@ -1,22 +1,29 @@
 import { useState } from 'react'
 import './App.css'
-import { testController } from './controllers/GeminiController.js';
 import TasksSurvey from './components/TasksSurvey.jsx';
 import HobbiesSurvey from './components/HobbiesSurvey.jsx';
+import DayPlanner from './components/DayPlanner.jsx';
 
 function App() {
     const [hobby, setHobby] = useState('');
     const [hobbies, setHobbies] = useState([]);
-    const [tasksDone, setTasksDone] = useState(false);
+    const [categorizedHobbies, setCategorizedHobbies] = useState({
+        Harmful: [],
+        Reasonable: [],
+        Excellent: [],
+      });
+    const [filteredHobbies, setFilteredHobbies] = useState([]);
+    const [showTasks, setShowTasks] = useState(true);
+    const [showHobbies, setShowHobbies] = useState(false);
+    const [showDayPlanner, setShowDayPlanner] = useState(false);
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [level, setLevel] = useState('');
     const [tasks, setTasks] = useState([]);
 
-    
-    if (!tasksDone) {
-        return (
-            <>
+    return (
+      <>
+      { showTasks && 
             <div className='col-md-12'>
                 <TasksSurvey 
                     task={task}
@@ -27,26 +34,34 @@ function App() {
                     setDueDate={setDueDate}
                     tasks={tasks}
                     setTasks={setTasks}
-                    tasksDone={tasksDone}
-                    setTasksDone={setTasksDone}
+                    setShowTasks={setShowTasks}
+                    setShowHobbies = {setShowHobbies}
                 />
             </div>
-                
-            </>
-        );
-    }
-    else {
-        return (
-            <>
-                <HobbiesSurvey 
-                    hobby={hobby}
-                    hobbies={hobbies}
-                    setHobby={setHobby}
-                    setHobbies={setHobbies}
-                />
-            </>
-            );
-    }
+      }
+      {
+        showHobbies && 
+        <HobbiesSurvey 
+            hobby={hobby}
+            hobbies={hobbies}
+            setHobby={setHobby}
+            setHobbies={setHobbies}
+            categorizedHobbies = {categorizedHobbies}
+            setCategorizedHobbies = {setCategorizedHobbies}
+            setShowHobbies={setShowHobbies}
+            setShowDayPlanner={setShowDayPlanner}
+            setFilteredHobbies={setFilteredHobbies}
+            />
+      }
+      {
+        showDayPlanner && 
+        <DayPlanner
+        tasks={tasks}
+        filteredHobbies={filteredHobbies}
+        />
+      }
+      </>
+    )
 }
 
 export default App;

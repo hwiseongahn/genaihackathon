@@ -1,69 +1,30 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-
-function HobbiesSurvey() {
-  const [hobby, setHobby] = useState('');
-  const [hobbies, setHobbies] = useState([]);
-  const [categorizedHobbies, setCategorizedHobbies] = useState({
-    Harmful: [],
-    Reasonable: [],
-    Excellent: [],
-  });
-
+import React from "react";
+import axios from "axios";
+import { getHobbiesData } from "../controllers/GeminiController";
+import { FaTrashAlt } from "react-icons/fa";
+function HobbiesSurvey({
+  hobby,
+  hobbies,
+  setHobby,
+  setHobbies,
+  categorizedHobbies,
+  setCategorizedHobbies,
+  setShowHobbies,
+  setShowDayPlanner,
+  setFilteredHobbies,
+}) {
   const handleAddHobby = (e) => {
     e.preventDefault();
     if (hobby) {
       setHobbies([...hobbies, { id: Date.now(), name: hobby }]);
-      setHobby('');
+      setHobby("");
     }
   };
 
-  const handleSubmitAll = () => {
-    const hobbyNames = hobbies.map((h) => h.name).join('\n');
-    const prompt = `
-      I will give you a list of hobbies in this format:
-
-      Hobbies:
-
-      1) Hobby 1
-      2) Hobby 2
-      3) Hobby 3
-      etc...
-
-      Your task is to return a JSON object in the form:
-
-      {
-          "Harmful": ["..."],
-          "Reasonable": ["..."],
-          "Excellent": ["..."]
-      }
-
-      If there are any harmful activities, replace them with non-harmful alternatives related to the other hobbies.
-
-      Here's the hobbies:
-
-      ${hobbyNames}
-    `;
-
-    axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
-          import.meta.env.VITE_API_KEY
-        }`,
-        {
-          contents: [
-            {
-              parts: [{ text: prompt }],
-            },
-          ],
-        }
-      )
-      .then((res) => {
-        const result = JSON.parse(res.data.candidates[0].content.parts[0].text);
-        setCategorizedHobbies(result);
-      })
-      .catch((err) => {
-        console.error('Error categorizing hobbies:', err);
-      });
+  const handleSubmitHobbies = () => {
+    getHobbiesData(hobbies, setFilteredHobbies);
+    setShowHobbies(false);
+    setShowDayPlanner(true);
   };
 
   return (
@@ -101,22 +62,39 @@ function HobbiesSurvey() {
                   <ul className="list-group mb-3">
                     {hobbies.map((h) => (
                       <li key={h.id} className="list-group-item">
-                        {h.name}
+                        <div className="d-flex justify-content-between">
+                          <p>{h.name}</p>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              setHobbies(
+                                hobbies.filter((hobby) => hobby.id !== h.id)
+                              )
+                            }
+                          >
+                            <FaTrashAlt />
+                          </button>
+                        </div>
                       </li>
                     ))}
                   </ul>
                   <button
                     className="btn btn-success w-100"
-                    onClick={handleSubmitAll}
+                    onClick={handleSubmitHobbies}
                   >
                     Submit All
                   </button>
                 </div>
               )}
 
-              {Object.values(categorizedHobbies).some((list) => list.length > 0) && (
+              {Object.values(categorizedHobbies).some(
+                (list) => list.length > 0
+              ) && (
                 <div className="mt-4">
                   <h3>Categories of Your Hobbies:</h3>
+                  <p>
+                    <i>Disclaimer: Gemini AI categorized your hobbies.</i>
+                  </p>
                   <table className="table table-bordered">
                     <thead>
                       <tr>
