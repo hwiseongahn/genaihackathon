@@ -8,6 +8,12 @@ import HobbiesSurvey from './components/HobbiesSurvey.jsx';
 function App() {
     const [hobby, setHobby] = useState('');
     const [hobbies, setHobbies] = useState([]);
+    const [categorizedHobbies, setCategorizedHobbies] = useState({
+      Harmful: [],
+      Reasonable: [],
+      Excellent: [],
+    });
+  
     return (
         <>
             <HobbiesSurvey 
@@ -15,6 +21,8 @@ function App() {
             hobbies={hobbies}
             setHobby={setHobby}
             setHobbies={setHobbies}
+            categorizedHobbies = {categorizedHobbies}
+            setCategorizedHobbies = {setCategorizedHobbies}
             />
         </>
     );
