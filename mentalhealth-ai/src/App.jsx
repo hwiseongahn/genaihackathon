@@ -62,41 +62,6 @@ function App() {
       }
       </>
     )
-    // if (!tasksDone) {
-    //     return (
-    //         <>
-    //         <div className='col-md-12'>
-    //             <TasksSurvey 
-    //                 task={task}
-    //                 setTask={setTask}
-    //                 level={level}
-    //                 setLevel={setLevel}
-    //                 dueDate={dueDate}
-    //                 setDueDate={setDueDate}
-    //                 tasks={tasks}
-    //                 setTasks={setTasks}
-    //                 tasksDone={tasksDone}
-    //                 setTasksDone={setTasksDone}
-    //             />
-    //         </div>
-                
-    //         </>
-    //     );
-    // }
-    // else {
-    //     return (
-    //         <>
-    //             <HobbiesSurvey 
-    //                 hobby={hobby}
-    //                 hobbies={hobbies}
-    //                 setHobby={setHobby}
-    //                 setHobbies={setHobbies}
-    //                 categorizedHobbies = {categorizedHobbies}
-    //                 setCategorizedHobbies = {setCategorizedHobbies}
-    //             />
-    //         </>
-    //         );
-    // }
 }
 
 export default App;
