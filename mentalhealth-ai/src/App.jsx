@@ -58,6 +58,7 @@ function App() {
         <DayPlanner
         tasks={tasks}
         filteredHobbies={filteredHobbies}
+        showDayPlanner={showDayPlanner}
         />
       }
       </>
