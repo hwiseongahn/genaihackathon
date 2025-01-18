@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
 
-function TasksSurvey () {
-  const [task, setTask] = useState('');
-  const [level, setLevel] = useState('');
-  const [tasks, setTasks] = useState([]);
+function TasksSurvey ({task, setTask, level, setLevel, dueDate, setDueDate, tasks, setTasks, tasksDone, setTasksDone}) {
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();

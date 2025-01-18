@@ -27,6 +27,8 @@ function App() {
                     setDueDate={setDueDate}
                     tasks={tasks}
                     setTasks={setTasks}
+                    tasksDone={tasksDone}
+                    setTasksDone={setTasksDone}
                 />
             </div>
                 
@@ -45,7 +47,6 @@ function App() {
             </>
             );
     }
-    
 }
 
 export default App;
