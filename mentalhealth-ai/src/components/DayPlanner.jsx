@@ -4,10 +4,10 @@ import { getPlannerData } from "../controllers/GeminiController";
 import TaskList from "./TaskList";
 import Schedule from "./Schedule";
 
-const DayPlanner = ({tasks, hobbies}) => {
+const DayPlanner = ({tasks, filteredHobbies}) => {
   const [plannerInfo, setPlannerInfo] = useState();
   const getDayPlannerInfo = async () => {
-    const res = await getPlannerData(tasks,hobbies);
+    const res = await getPlannerData(tasks,filteredHobbies);
     console.log(res);
     setPlannerInfo(res.dailyPlan);
   };

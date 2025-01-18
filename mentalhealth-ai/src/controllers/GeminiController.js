@@ -1,7 +1,6 @@
 import axios from "axios";
 export const getPlannerData = async (tasks, hobbies) => {
-  console.log(tasks, hobbies);
-
+  console.log({tasks: tasks}, {filteredHobbies: hobbies});
   try {
     const res = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
@@ -54,24 +53,8 @@ IMPORTANT: Your responses should ONLY contain JSON objects. DO NOT INCLUDE ANY O
 
 Here's a sample response you might get:
 
-Tasks:
-Task 1:
-1) Assignment 2 English 101
-2) 3
-3) Short term
-4) 3PM tomorrow
+${tasks}
 
-Task 2:
-1) Test 3 Health 303
-2) 4
-3) Short term
-4) 5PM tomorrow
-
-Task 3:
-1) Learn Python
-2) 2
-3) Long term
-4) 1 year
 
 Hobbies:
 
@@ -97,7 +80,7 @@ Hobbies:
   }
 };
 
-export const getHobbiesData = (hobbies) => {
+export const getHobbiesData = (hobbies, setFilteredHobbies) => {
   if (hobbies.length === 0) {
     alert("Please add at least one hobby before submitting.");
     return;
@@ -180,11 +163,7 @@ ${hobbyNames}
         .replace("```", "")
         .trim();
       const result = JSON.parse(cleaned_response);
-      return {
-        message:
-          "You entered an inappropiate hobby. I changed it to accommodate your needs",
-        result,
-      };
+      setFilteredHobbies(result);
     })
     .catch((err) => {
       console.error("Error categorizing hobbies:", err);

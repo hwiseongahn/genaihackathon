@@ -1,7 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { getHobbiesData } from '../controllers/GeminiController';
-
+import React from "react";
+import axios from "axios";
+import { getHobbiesData } from "../controllers/GeminiController";
+import { FaTrashAlt } from "react-icons/fa";
 function HobbiesSurvey({
   hobby,
   hobbies,
@@ -10,22 +10,22 @@ function HobbiesSurvey({
   categorizedHobbies,
   setCategorizedHobbies,
   setShowHobbies,
-  setShowDayPlanner
+  setShowDayPlanner,
+  setFilteredHobbies,
 }) {
   const handleAddHobby = (e) => {
     e.preventDefault();
     if (hobby) {
       setHobbies([...hobbies, { id: Date.now(), name: hobby }]);
-      setHobby('');
+      setHobby("");
     }
   };
 
   const handleSubmitHobbies = () => {
-    const res = getHobbiesData(hobbies)
-    console.log(res)
+    getHobbiesData(hobbies, setFilteredHobbies);
     setShowHobbies(false);
     setShowDayPlanner(true);
-  }
+  };
 
   return (
     <div className="container mt-5 vw-100">
@@ -62,7 +62,19 @@ function HobbiesSurvey({
                   <ul className="list-group mb-3">
                     {hobbies.map((h) => (
                       <li key={h.id} className="list-group-item">
-                        {h.name}
+                        <div className="d-flex justify-content-between">
+                          <p>{h.name}</p>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() =>
+                              setHobbies(
+                                hobbies.filter((hobby) => hobby.id !== h.id)
+                              )
+                            }
+                          >
+                            <FaTrashAlt />
+                          </button>
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -75,7 +87,9 @@ function HobbiesSurvey({
                 </div>
               )}
 
-              {Object.values(categorizedHobbies).some((list) => list.length > 0) && (
+              {Object.values(categorizedHobbies).some(
+                (list) => list.length > 0
+              ) && (
                 <div className="mt-4">
                   <h3>Categories of Your Hobbies:</h3>
                   <p>

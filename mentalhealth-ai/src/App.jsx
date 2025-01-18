@@ -12,6 +12,7 @@ function App() {
         Reasonable: [],
         Excellent: [],
       });
+    const [filteredHobbies, setFilteredHobbies] = useState([]);
     const [showTasks, setShowTasks] = useState(true);
     const [showHobbies, setShowHobbies] = useState(false);
     const [showDayPlanner, setShowDayPlanner] = useState(false);
@@ -49,13 +50,14 @@ function App() {
             setCategorizedHobbies = {setCategorizedHobbies}
             setShowHobbies={setShowHobbies}
             setShowDayPlanner={setShowDayPlanner}
+            setFilteredHobbies={setFilteredHobbies}
             />
       }
       {
         showDayPlanner && 
         <DayPlanner
         tasks={tasks}
-        hobbies={hobbies}
+        filteredHobbies={filteredHobbies}
         />
       }
       </>
