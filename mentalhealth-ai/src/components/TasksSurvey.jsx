@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-function TasksSurvey ({ task, setTask, level, setLevel, dueDate, setDueDate, tasks, setTasks }) {
 
+function TasksSurvey ({task, setTask, level, setLevel, dueDate, setDueDate, tasks, setTasks, tasksDone, setTasksDone}) {
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
