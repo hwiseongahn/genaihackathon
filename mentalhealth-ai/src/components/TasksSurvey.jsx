@@ -30,7 +30,7 @@ return (
                     <div className="card-body">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3 row">
-                                <div className='col-md-8'>
+                                <div className='col-md-5'>
                                     <label htmlFor="task" className="form-label">What's stressing you?</label>
                                     <input
                                         type="text"
@@ -42,10 +42,10 @@ return (
                                         required
                                     />
                                 </div>
-                                <div className='col-md-4'>
+                                <div className='col-md-3 p-0'>
                                     <label htmlFor="stress-level" className="form-label">Stress Level</label>
                                     <select
-                                        className="form-select"
+                                        className="form-select bg-white text-secondary"
                                         id="stress-level"
                                         value={level}
                                         onChange={(e) => setLevel(e.target.value)}
@@ -54,13 +54,12 @@ return (
                                         <option value="">Select stress level</option>
                                         {[1, 2, 3, 4, 5].map((num) => (
                                             <option key={num} value={num}>
-                                                {num} - {num === 1 ? 'Low' : num === 5 ? 'High' : 'Medium'}
+                                                {num} 
                                             </option>
                                         ))}
                                     </select>
                                 </div>
-                            </div>
-                            <div className='mb-3'>
+                                <div className='col-md-4 mb-3'>
                                 <label htmlFor='due-date' className='form-label'>Enter due date:</label>
                                 <input
                                     type="date"
@@ -71,6 +70,7 @@ return (
                                     placeholder="Enter your duedate"
                                     required
                                 />
+                                </div>
                             </div>
                             <button type="submit" className="btn btn-primary w-100">Submit</button>
                         </form>
