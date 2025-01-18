@@ -46,7 +46,7 @@ return (
                                 <div className='col-md-3 d-flex flex-column p-0'>
                                     <label htmlFor="stress-level" className="form-label">Stress Level</label>
                                     <select
-                                        className="form-select bg-white text-secondary flex-grow-1"
+                                        className="form-select bg-white text-secondary flex-grow-1 rounded"
                                         id="stress-level"
                                         value={level}
                                         onChange={(e) => setLevel(e.target.value)}
@@ -73,8 +73,9 @@ return (
                                     />
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary w-100">Submit</button>
+                            <button type="submit" className="btn btn-primary w-100">Add task</button>
                         </form>
+                        <button onClick={() => setTasksDone(true)} className="btn btn-primary w-100">Submit</button>
 
                         {tasks.length > 0 && (
                             <div className="mt-4">
