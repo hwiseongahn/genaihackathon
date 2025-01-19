@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import logo from '../assets/favicon.svg';
+import React, { useState } from "react";
+import logo from "../assets/favicon.svg";
 import { FaTrashAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 
@@ -125,9 +125,17 @@ function TasksSurvey({
                 </div>
                 <div className="row">
                   <div className="col-4">
-                    <button type="submit" className="btn btn-primary w-100 d-block">
+                    <motion.button
+                      type="submit"
+                      className="btn btn-primary w-100 d-block"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{
+                        scale: 0.9,
+                        rotate: -5,
+                      }}
+                    >
                       Add task
-                    </button>
+                    </motion.button>
                   </div>
                   <div className="col-8">
                     <button
@@ -140,39 +148,55 @@ function TasksSurvey({
                 </div>
               </form>
 
-                        {tasks.length > 0 && (
-                            <div className="mt-4 w-100">
-                                <h3>Logged Tasks:</h3>
-                                <ul className="list-group">
-                                    {tasks.map((t) => (
-                                        <li key={t.id} className="list-group-item d-flex justify-content-between align-items-center">
-                                            {t.task}
-                                            <span className={`badge bg-${t.stress <= 2 ? 'success' : t.stress <= 4 ? 'warning' : 'danger'} rounded-pill`}>
-                                                Stress Level {t.stress}
-                                            </span>
-                                            <span className={`badge bg-${t.priority <= 2 ? 'success' : t.priority <= 4 ? 'warning' : 'danger'} rounded-pill`}>
-                                                Priority Level {t.priority}
-                                            </span>
-                                            <span className="">
-                                                Due Date: {t.dueDate}
-                                            </span>
-                                            <button 
-                                                    className = "btn btn-outline-danger" 
-                                                    onClick={()=>
-                                                    setTasks(tasks.filter((task) => task.id !== t.id))}
-                                                    >
-                                                    <FaTrashAlt/>
-                                                    
-                                            </button>
-
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
+              {tasks.length > 0 && (
+                <div className="mt-4 w-100">
+                  <h3>Logged Tasks:</h3>
+                  <ul className="list-group">
+                    {tasks.map((t) => (
+                      <li
+                        key={t.id}
+                        className="list-group-item d-flex justify-content-between align-items-center"
+                      >
+                        {t.task}
+                        <span
+                          className={`badge bg-${
+                            t.stress <= 2
+                              ? "success"
+                              : t.stress <= 4
+                              ? "warning"
+                              : "danger"
+                          } rounded-pill`}
+                        >
+                          Stress Level {t.stress}
+                        </span>
+                        <span
+                          className={`badge bg-${
+                            t.priority <= 2
+                              ? "success"
+                              : t.priority <= 4
+                              ? "warning"
+                              : "danger"
+                          } rounded-pill`}
+                        >
+                          Priority Level {t.priority}
+                        </span>
+                        <span className="">Due Date: {t.dueDate}</span>
+                        <button
+                          className="btn btn-outline-danger"
+                          onClick={() =>
+                            setTasks(tasks.filter((task) => task.id !== t.id))
+                          }
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="d-flex justify-content-center"></div>
+              )}
+            </div>
+          </div>
+          <div className="d-flex justify-content-center"></div>
         </div>
       </div>
     </div>
