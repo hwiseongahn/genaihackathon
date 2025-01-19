@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/favicon.svg';
 
-
 function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, dueDate, setDueDate, tasks, setTasks, setShowTasks, setShowHobbies}) {
   
   const handleSubmit = (e) => {
@@ -130,6 +129,8 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
         </div>
       </div>
     </div>
+
+    
   );
 }
 

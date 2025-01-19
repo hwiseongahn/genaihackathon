@@ -21,7 +21,7 @@ const DayPlanner = ({tasks, filteredHobbies}) => {
      
       <div className="row w-100 d-flex justify-content-center">
         <div className="col-4">
-          {plannerInfo && <TaskList tasks={plannerInfo} />}
+          {plannerInfo && <TaskList tasks={tasks} />}
         </div>
         <div className="col-6">
           {plannerInfo && <Schedule tasks={plannerInfo} />}
