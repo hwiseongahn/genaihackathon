@@ -69,12 +69,6 @@ export const getTasksFromGemini = async (text) => {
   }
 };
 
-const readGoogleCalendarJSON = (text) => {
-  data = JSON.parse(text);
-  console.log(data);
-  return data;
-}
-
 export const getActionPlan = async (task) => {
   try {
     const res = await axios.post(
