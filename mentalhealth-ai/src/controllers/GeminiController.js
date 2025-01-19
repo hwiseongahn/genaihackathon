@@ -15,8 +15,9 @@ export const getTasksFromGemini = async (text) => {
 
                       The user has provided the following information about their tasks for the day:
 
-                      I need to complete my hackathon web application by tomorrow, it's causing me a lot of stress. I also have a midterm exam next week that I need to study for. 
-                      I also have an assignment that i need to get started on thats due next week tuesday. I also need to do laundry and clean my room.
+                      ${text}
+
+                      This is the current date and time, make sure to build the schedule around it: ${new Date().toLocaleString()}
 
                       Generate a daily action plan with:  
                       - A prioritized task list including suggested times to work on each task, with breaks and stress-relief activities.  
@@ -25,30 +26,20 @@ export const getTasksFromGemini = async (text) => {
                       {
                         "tasks": [
                           {
-                            task: {
+                            {
                               "task_name": "Hackathon web application",
                               "priority": "High",
                               "stress": "5",
                               "time": "9:00 AM - 12:00 PM"
-                              "action_plan": "action plan for the task"
+                              "type": "Work"
                             },
-                            task: {
-                              "task_name": "Hackathon web application",
-                              "priority": "High",
-                              "stress": "3",
+                            {
+                              "task_name": "Play the Guitar",
+                              "priority": "None",
+                              "stress": "0",
                               "time": "1:00 PM - 2:00 PM"
-                              "action_plan": "action plan for the task"
+                              "type": "Relax"
                             }
-                          }
-                        ]
-                        "stress_relief_activities": [
-                          {
-                            "activity_name": "Meditation",
-                            "time": "12:00 PM - 1:00 PM"
-                          },
-                          {
-                            "activity_name": "Exercise",
-                            "time": "3:00 PM - 4:00 PM"
                           }
                         ]
                       }
@@ -97,9 +88,9 @@ export const getActionPlan = async (task) => {
                       {
                         "task_name": "Hackathon web application",
                         "steps": [
-                          { "step": 1, "description": "Review the project requirements and set clear goals", "estimated_time": "30 minutes" },
-                          { "step": 2, "description": "Create a basic wireframe or design outline for the application", "estimated_time": "45 minutes" },
-                          { "step": 3, "description": "Start coding the main functionality of the application", "estimated_time": "90 minutes" }
+                          { "step": 1, "description": "Review the project requirements and set clear goals", "estimated_time": "30m" },
+                          { "step": 2, "description": "Create a basic wireframe or design outline for the application", "estimated_time": "45m" },
+                          { "step": 3, "description": "Start coding the main functionality of the application", "estimated_time": "90m" }
                         ],
                         "resources/tools": [
                           "Figma for wireframing",
