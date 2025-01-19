@@ -3,6 +3,7 @@ import './App.css'
 import TasksSurvey from './components/TasksSurvey.jsx';
 import HobbiesSurvey from './components/HobbiesSurvey.jsx';
 import DayPlanner from './components/DayPlanner.jsx';
+import CreateDayPlanner from './components/CreateDayPlanner.jsx';
 
 function App() {
     const [hobby, setHobby] = useState('');
@@ -23,8 +24,9 @@ function App() {
     const [tasks, setTasks] = useState([]);
 
     return (
-      <>
-      { showTasks && 
+      <div className='container min-vh-100 d-flex justify-content-center align-items-center overflow-auto'>
+      <CreateDayPlanner/>
+      {/* { showTasks && 
             <div className='col-md-12'>
                 <TasksSurvey 
                     task={task}
@@ -63,8 +65,8 @@ function App() {
         filteredHobbies={filteredHobbies}
         showDayPlanner={showDayPlanner}
         />
-      }
-      </>
+      } */}
+      </div>
     )
 }
 
