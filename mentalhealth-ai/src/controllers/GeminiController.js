@@ -1,4 +1,5 @@
 import axios from "axios";
+import calendarData from '../assets/googlecalendar.json';
 
 export const getTasksFromGemini = async (text) => {
   try {
@@ -21,21 +22,7 @@ export const getTasksFromGemini = async (text) => {
 
                       I also have this on my google calendar for the day:
 
-                      {
-                        "items": [
-                          {
-                            "summary": "Team Meeting",
-                            "start": { "dateTime": "2025-01-19T10:00:00-04:00" },
-                            "end": { "dateTime": "2025-01-19T11:00:00-04:00" }
-                          },
-                          {
-                            "summary": "Lunch with Alex",
-                            "start": { "dateTime": "2025-01-19T12:30:00-04:00" },
-                            "end": { "dateTime": "2025-01-19T13:30:00-04:00" }
-                          }
-                        ]
-                      }
-
+                      ${JSON.stringify(calendarData, null, 2)}
 
                       Generate a daily action plan with:  
                       - A prioritized task list including suggested times to work on each task, with breaks and stress-relief activities.  
@@ -81,6 +68,12 @@ export const getTasksFromGemini = async (text) => {
     console.error(error);
   }
 };
+
+const readGoogleCalendarJSON = (text) => {
+  data = JSON.parse(text);
+  console.log(data);
+  return data;
+}
 
 export const getActionPlan = async (task) => {
   try {
