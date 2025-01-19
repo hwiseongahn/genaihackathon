@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/favicon.svg';
+import { FaTrashAlt } from "react-icons/fa";
 
 
 function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, dueDate, setDueDate, tasks, setTasks, setShowTasks, setShowHobbies}) {
@@ -119,6 +120,15 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                         <span className="">
                           Due Date: {t.dueDate}
                         </span>
+                        <button 
+                            className = "btn btn-outline-danger" 
+                            onClick={()=>
+                            setTasks(tasks.filter((task) => task.id !== t.id))}
+                            >
+                            <FaTrashAlt/>
+                            
+                        </button>
+
                       </li>
                     ))}
                   </ul>
