@@ -3,48 +3,6 @@ import axios from "axios";
 import { getHobbiesData } from "../controllers/GeminiController";
 import { FaTrashAlt } from "react-icons/fa";
 
-async function SuggestHobby(hobbies, setRawResponse) {
-    const res = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
-            import.meta.env.VITE_API_KEY_HWI
-        }`,
-        {
-            contents: [
-                {
-                    parts: [
-                        {
-                            text: `Suggest me one hobby based on these hobbies, don't explain anything, just give me the hobby: ${getHobbyPromptString(hobbies)}`,
-                        },
-                    ],
-                },
-            ],
-        }
-    );
-    const raw_response = res.data.candidates[0].content.parts[0].text;
-    console.log(raw_response);
-    setRawResponse(raw_response);
-    AddSuggestedHobby(raw_response);
-    setRawResponse("");
-    handleAddHobby();
-}
-
-function AddSuggestedHobby(rawResponse) {
-    setHobbies([...hobbies, { id: Date.now(), name: rawResponse }]);
-    setHobby("");
-}
-
-const getHobbyPromptString = (hobbies) => {
-    console.log(hobbies.hobby);
-    let prompt = "";
-    let index = 1;
-    hobbies.forEach((hobby) => {
-        console.log(hobby.name);
-        prompt += `${index}) ${hobby.name} \n`;
-        index++;
-    });
-    return prompt;
-};
-
 function HobbiesSurvey({
     hobby,
     hobbies,
@@ -57,6 +15,46 @@ function HobbiesSurvey({
     setFilteredHobbies,
 }) {
     const [rawResponse, setRawResponse] = useState("");
+
+    async function SuggestHobby(hobbies, setRawResponse) {
+        const res = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
+                import.meta.env.VITE_API_KEY_HWI
+            }`,
+            {
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: `Suggest me one hobby based on these hobbies, don't explain anything, just give me the hobby: ${getHobbyPromptString(hobbies)}`,
+                            },
+                        ],
+                    },
+                ],
+            }
+        );
+        const raw_response = res.data.candidates[0].content.parts[0].text;
+        setRawResponse(raw_response);
+        AddSuggestedHobby(raw_response);
+        setRawResponse("");
+    }
+    
+    function AddSuggestedHobby(rawResponse) {
+        setHobbies([...hobbies, { id: Date.now(), name: rawResponse }]);
+        setHobby("");
+    }
+    
+    const getHobbyPromptString = (hobbies) => {
+        console.log(hobbies.hobby);
+        let prompt = "";
+        let index = 1;
+        hobbies.forEach((hobby) => {
+            console.log(hobby.name);
+            prompt += `${index}) ${hobby.name} \n`;
+            index++;
+        });
+        return prompt;
+    };
 
     const handleAddHobby = (e) => {
         e.preventDefault();
