@@ -14,7 +14,7 @@ const TaskList = ({tasks}) => {
               tasks.map((task, index) => (
                 <li className="list-group-item p-1" key={index}>
                     <div className="d-flex justify-content-start">
-                    {task.activityName}
+                    {task.task}
                     </div>
                   
                 </li>
