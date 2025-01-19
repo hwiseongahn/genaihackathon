@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../assets/favicon.svg';
 import { FaTrashAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 
 function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, dueDate, setDueDate, tasks, setTasks, setShowTasks, setShowHobbies}) {
@@ -101,7 +102,14 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Add task</button>
+                <motion.button type="submit" className="btn btn-primary w-100"
+                    whileHover={{ scale: 1.1, rotate:0 }}
+                    whileTap={{
+                    scale: 0.99,    
+                    rotate: -1,
+                    }}>
+                    Add task
+                </motion.button>
               </form>
 
               {tasks.length > 0 && (
