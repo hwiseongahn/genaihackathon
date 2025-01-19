@@ -1,14 +1,36 @@
 {
-    "items": [
-      {
-        "summary": "Team Meeting",
-        "start": { "dateTime": "2025-01-19T10:00:00-04:00" },
-        "end": { "dateTime": "2025-01-19T11:00:00-04:00" }
+  "items": [
+    {
+      "summary": "Hackathon meeting",
+      "start": {
+        "dateTime": "2025-01-19T16:00:00-04:00",
+        "timeZone": "Asia/Kolkata"
       },
-      {
-        "summary": "Lunch with Alex",
-        "start": { "dateTime": "2025-01-19T12:30:00-04:00" },
-        "end": { "dateTime": "2025-01-19T13:30:00-04:00" }
+      "end": {
+        "dateTime": "2025-01-19T17:00:00-04:00",
+        "timeZone": "Asia/Kolkata"
       }
-    ]
-  }
+    },
+    {
+      "summary": "Dinner with recruiter",
+      "start": {
+        "dateTime": "2025-01-19T18:00:00-04:00",
+        "timeZone": "Asia/Kolkata"
+      },
+      "end": {
+        "dateTime": "2025-01-19T19:00:00-04:00",
+        "timeZone": "Asia/Kolkata"
+      }
+    },
+    {
+      "start": {
+        "dateTime": "2025-01-21T14:30:00-04:00",
+        "timeZone": "America/Halifax"
+      },
+      "end": {
+        "dateTime": "2025-01-21T15:30:00-04:00",
+        "timeZone": "America/Halifax"
+      }
+    }
+  ]
+}
