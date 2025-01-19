@@ -2,11 +2,12 @@ import React from "react";
 import { FaMagic } from "react-icons/fa";
 const Schedule = ({ plan, generateActionPlan }) => {
   return (
-    <div className="card ">
+    <div className="card">
       <div className="card-body">
         <h5 className="text-center mb-3">
           <b>Day Schedule</b>
         </h5>
+        <div style={{ maxHeight: "440px", overflowY: "auto" }}>
         <ul className="list-group text-dark">
           {plan.tasks.map((task, index) => (
             <li key={index} className={`list-group-item`}>
@@ -24,13 +25,14 @@ const Schedule = ({ plan, generateActionPlan }) => {
                 <div className="col-3">
                   <p
                     className={`${
-                      task.priority == "High"
-                        ? "bg-danger"
-                        : task.priority == "Medium"
+                      task.priority == "High" && task.type == "Work"
+                        ? "bg-danger" 
+                        : task.priority == "Medium" && task.type == "Work"
                         ? "bg-warning"
-                        : task.type == "Relax"
-                        ? "bg-light"
-                        : "bg-success"
+                        : task.priority == "Low" && task.type == "Work"
+                        ? "bg-success"
+                        :
+                        "bg-info"
                     } p-1 rounded-lg text-center`}
                   >
                     <b>{task.type == "Work" ? task.priority : "Relax"}</b>
@@ -50,6 +52,7 @@ const Schedule = ({ plan, generateActionPlan }) => {
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </div>
   );

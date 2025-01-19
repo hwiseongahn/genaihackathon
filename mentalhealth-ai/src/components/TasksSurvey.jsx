@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
-import logo from '../assets/favicon.svg';
+import React, { useState } from "react";
+import logo from "../assets/favicon.svg";
 
-function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, dueDate, setDueDate, tasks, setTasks, setShowTasks, setShowHobbies}) {
-  
+function TasksSurvey({
+  task,
+  setTask,
+  stress,
+  setStress,
+  priority,
+  setPriority,
+  dueDate,
+  setDueDate,
+  tasks,
+  setTasks,
+  setShowTasks,
+  setShowHobbies,
+}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (task && stress && dueDate) {
@@ -23,7 +35,7 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
   const handleSubmitTaskList = () => {
     setShowTasks(false);
     setShowHobbies(true);
-  }
+  };
 
   //for now, we are just displaying the tasks
   console.log(tasks);
@@ -33,15 +45,19 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
       <div className="row justify-content-center w-100">
         <div className="col-md-8">
           <div className="card">
-            <div className="card-header bg-primary text-white text-center">
-              <h2 className="mb-0">Stress Tracker</h2>
-              <img className="h-25 d-inline-block" src={logo} alt="logo" />
-            </div>
             <div className="card-body">
+              <h3 className="text-center">
+                <b>Add Your Tasks Manually</b>
+              </h3>
+              <div className="w-100 d-flex justify-content-center">
+                <img className="h-25 img-fluid" src={logo} alt="logo" />
+              </div>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3 row">
-                  <div className='col-md-4'>
-                    <label htmlFor="task" className="form-label">What's stressing you?</label>
+                  <div className="col-md-4">
+                    <label htmlFor="task" className="form-label">
+                      What's stressing you?
+                    </label>
                     <input
                       type="text"
                       className="form-control border"
@@ -52,8 +68,10 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                       required
                     />
                   </div>
-                  <div className='col-md-2 d-flex flex-column mr-2 p-0'>
-                    <label htmlFor="stress-level" className="form-label">Stress Level</label>
+                  <div className="col-md-2 d-flex flex-column mr-2 p-0">
+                    <label htmlFor="stress-level" className="form-label">
+                      Stress Level
+                    </label>
                     <select
                       className="form-select bg-white text-secondary flex-grow-1 rounded border"
                       id="stress-level"
@@ -69,8 +87,10 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                       ))}
                     </select>
                   </div>
-                  <div className='col-md-2 d-flex flex-column ml-2 p-0'>
-                  <label htmlFor="priority-level" className="form-label">Priority Level</label>
+                  <div className="col-md-2 d-flex flex-column ml-2 p-0">
+                    <label htmlFor="priority-level" className="form-label">
+                      Priority Level
+                    </label>
                     <select
                       className="form-select bg-white text-secondary flex-grow-1 rounded border"
                       id="stress-level"
@@ -86,8 +106,10 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                       ))}
                     </select>
                   </div>
-                  <div className='col-md-3'>
-                    <label htmlFor='due-date' className='form-label'>Enter due date:</label>
+                  <div className="col-md-3">
+                    <label htmlFor="due-date" className="form-label">
+                      Enter due date:
+                    </label>
                     <input
                       type="date"
                       className="form-control border"
@@ -99,7 +121,21 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Add task</button>
+                <div className="row">
+                  <div className="col-4">
+                    <button type="submit" className="btn btn-primary w-100 d-block">
+                      Add task
+                    </button>
+                  </div>
+                  <div className="col-8">
+                    <button
+                      onClick={handleSubmitTaskList}
+                      className="btn btn-primary w-100 d-block"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
               </form>
 
               {tasks.length > 0 && (
@@ -107,17 +143,34 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
                   <h3>Logged Tasks:</h3>
                   <ul className="list-group">
                     {tasks.map((t) => (
-                      <li key={t.id} className="list-group-item d-flex justify-content-between align-items-center">
+                      <li
+                        key={t.id}
+                        className="list-group-item d-flex justify-content-between align-items-center"
+                      >
                         {t.task}
-                        <span className={`badge bg-${t.stress <= 2 ? 'success' : t.stress <= 4 ? 'warning' : 'danger'} rounded-pill`}>
+                        <span
+                          className={`badge bg-${
+                            t.stress <= 2
+                              ? "success"
+                              : t.stress <= 4
+                              ? "warning"
+                              : "danger"
+                          } rounded-pill`}
+                        >
                           Stress Level {t.stress}
                         </span>
-                        <span className={`badge bg-${t.priority <= 2 ? 'success' : t.priority <= 4 ? 'warning' : 'danger'} rounded-pill`}>
+                        <span
+                          className={`badge bg-${
+                            t.priority <= 2
+                              ? "success"
+                              : t.priority <= 4
+                              ? "warning"
+                              : "danger"
+                          } rounded-pill`}
+                        >
                           Priority Level {t.priority}
                         </span>
-                        <span className="">
-                          Due Date: {t.dueDate}
-                        </span>
+                        <span className="">Due Date: {t.dueDate}</span>
                       </li>
                     ))}
                   </ul>
@@ -125,12 +178,9 @@ function TasksSurvey ({task, setTask, stress, setStress, priority, setPriority, 
               )}
             </div>
           </div>
-          <button onClick={handleSubmitTaskList} className="btn btn-primary w-100 mt-3">Submit</button>
         </div>
       </div>
     </div>
-
-    
   );
 }
 
