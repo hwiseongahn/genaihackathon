@@ -98,14 +98,15 @@ function HobbiesSurvey({
                                     <button type="submit" className="btn btn-primary col-md-8">
                                         Add Hobby
                                     </button>
+                                    <button
+                                    onClick={() => SuggestHobby(hobbies, setRawResponse)}
+                                    className="btn btn-primary col-md-3"
+                                    >
+                                        Find Hobby Suggestions!
+                                    </button>
                                 </div>
                             </form>
-                            <button
-                                onClick={() => SuggestHobby(hobbies, setRawResponse)}
-                                className="btn btn-primary col-md-3"
-                            >
-                                Find Hobby Suggestions!
-                            </button>
+                            
 
                             {rawResponse && (
                                 <div className="mt-4">
