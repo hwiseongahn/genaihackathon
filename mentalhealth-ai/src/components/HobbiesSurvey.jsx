@@ -2,6 +2,40 @@ import React from "react";
 import axios from "axios";
 import { getHobbiesData } from "../controllers/GeminiController";
 import { FaTrashAlt } from "react-icons/fa";
+
+async function SuggestHobby (hobbies) {
+    const res = await axios.post(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
+          import.meta.env.VITE_API_KEY_HWI
+        }`,
+        {
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Suggest me hobbies based on these hobbies: ${getHobbyPromptString(hobbies)}`,
+                },
+              ],
+            },
+          ],
+        }
+      );
+      const raw_response = res.data.candidates[0].content.parts[0].text;
+      console.log(raw_response);
+}
+
+const getHobbyPromptString = (hobbies) => {
+    console.log(hobbies.hobby)
+    let prompt = "";
+    let index = 1;
+    hobbies.forEach(hobby => {
+      console.log(hobby.name)
+      prompt += `${index}) ${hobby.name} \n`
+      index++;
+    });
+    return prompt;
+  }
+
 function HobbiesSurvey({
   hobby,
   hobbies,
@@ -51,10 +85,17 @@ function HobbiesSurvey({
                     required
                   />
                 </div>
-                <button type="submit" className="btn btn-primary w-100">
-                  Add More
+                <div className="d-flex justify-content-between">
+                    <button type="submit" className="btn btn-primary col-md-8">
+                  Add Hobby
                 </button>
+                
+                </div>
+                
               </form>
+              <button onClick={() => SuggestHobby(hobbies)} className="btn btn-primary col-md-3">
+                  Find Hobby Suggestions!
+              </button>
 
               {hobbies.length > 0 && (
                 <div className="mt-4">
