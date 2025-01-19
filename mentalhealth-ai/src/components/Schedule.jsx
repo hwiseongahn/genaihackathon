@@ -24,7 +24,6 @@ return (
                                 </div>
                             </li>
                         ))
-                        
                     }
                 </ul>
             </div>

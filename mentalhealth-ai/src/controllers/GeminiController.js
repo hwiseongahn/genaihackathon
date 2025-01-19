@@ -1,8 +1,135 @@
 import axios from "axios";
-export const getPlannerData = async (tasks, hobbies) => {
-  console.log({tasks: tasks}, {filteredHobbies: hobbies});
+
+export const getTasksFromGemini = async (text) => {
   try {
+    const res = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: `You are a productivity and wellness assistant. Your goal is to help users reduce stress by creating a daily action plan that balances their priorities and includes stress-reducing activities. 
+
+                      The user has provided the following information about their tasks for the day:
+
+                      I need to complete my hackathon web application by tomorrow, it's causing me a lot of stress. I also have a midterm exam next week that I need to study for. 
+                      I also have an assignment that i need to get started on thats due next week tuesday. I also need to do laundry and clean my room.
+
+                      Generate a daily action plan with:  
+                      - A prioritized task list including suggested times to work on each task, with breaks and stress-relief activities.  
+
+                      Return your response in a JSON object with the following format:
+                      {
+                        "tasks": [
+                          {
+                            task: {
+                              "task_name": "Hackathon web application",
+                              "priority": "High",
+                              "stress": "5",
+                              "time": "9:00 AM - 12:00 PM"
+                              "action_plan": "action plan for the task"
+                            },
+                            task: {
+                              "task_name": "Hackathon web application",
+                              "priority": "High",
+                              "stress": "3",
+                              "time": "1:00 PM - 2:00 PM"
+                              "action_plan": "action plan for the task"
+                            }
+                          }
+                        ]
+                        "stress_relief_activities": [
+                          {
+                            "activity_name": "Meditation",
+                            "time": "12:00 PM - 1:00 PM"
+                          },
+                          {
+                            "activity_name": "Exercise",
+                            "time": "3:00 PM - 4:00 PM"
+                          }
+                        ]
+                      }
+                      `,
+              },
+            ],
+          },
+        ],
+      }
+    );
+    const raw_response = res.data.candidates[0].content.parts[0].text;
+    const cleaned_response = raw_response
+      .replace("```json", "")
+      .replace("```", "")
+      .trim();
+    const result = JSON.parse(cleaned_response);
+    console.log(result);
     
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getActionPlan = async (task) => {
+  try {
+    const res = await axios.post(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
+        import.meta.env.VITE_API_KEY
+      }`,
+      {
+        contents: [
+          {
+            parts: [
+              {
+                text: `
+                      You are an AI assistant specializing in productivity and stress management. 
+                      Your goal is to create a detailed and actionable plan to help the user complete a task efficiently while minimizing stress.
+                      Here is the task provided by the user:
+                      - Task Name: ${task.task_name}
+                      - Priority: ${task.priority}
+                      - Stress Level: ${task.stress} (on a scale of 1 to 5)
+                      - Time: ${task.time}
+
+                      Format the response as follows:
+                      {
+                        "task_name": "Hackathon web application",
+                        "steps": [
+                          { "step": 1, "description": "Review the project requirements and set clear goals", "estimated_time": "30 minutes" },
+                          { "step": 2, "description": "Create a basic wireframe or design outline for the application", "estimated_time": "45 minutes" },
+                          { "step": 3, "description": "Start coding the main functionality of the application", "estimated_time": "90 minutes" }
+                        ],
+                        "resources/tools": [
+                          "Figma for wireframing",
+                          "VS Code for development"
+                        ]
+                      }
+                      `,
+              },
+            ],
+          },
+        ],
+      }
+    );
+    const raw_response = res.data.candidates[0].content.parts[0].text;
+    const cleaned_response = raw_response
+      .replace("```json", "")
+      .replace("```", "")
+      .trim();
+    const result = JSON.parse(cleaned_response);
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+
+}
+
+export const getPlannerData = async (tasks, hobbies) => {
+  console.log({ tasks: tasks }, { filteredHobbies: hobbies });
+  try {
     const res = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${
         import.meta.env.VITE_API_KEY
@@ -83,27 +210,24 @@ ${getHobbyPromptString(hobbies)}
 const getPromptString = (tasks) => {
   let prompt = "";
   let index = 1;
-  tasks.forEach(task => {
+  tasks.forEach((task) => {
     prompt += `1)Task name: ${task.task}\n2)Priority level: ${task.priority}\n3)Stress level: ${task.stress}\n4)Due date: ${task.dueDate}\n\n`;
     index++;
   });
   console.log(prompt);
   return prompt;
-}
-
+};
 
 const getHobbyPromptString = (hobbies) => {
-  
   let prompt = "";
   let index = 1;
-  hobbies.hobbies.forEach(hobby => {
-    prompt += `${index}) ${hobby.hobbyName}\n`
+  hobbies.hobbies.forEach((hobby) => {
+    prompt += `${index}) ${hobby.hobbyName}\n`;
     index++;
   });
   console.log(prompt);
   return prompt;
-}
-
+};
 
 export const getHobbiesData = (hobbies, setFilteredHobbies) => {
   if (hobbies.length === 0) {
