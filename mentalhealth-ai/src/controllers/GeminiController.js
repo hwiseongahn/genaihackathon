@@ -19,6 +19,24 @@ export const getTasksFromGemini = async (text) => {
 
                       This is the current date and time, make sure to build the schedule around it: ${new Date().toLocaleString()}
 
+                      I also have this on my google calendar for the day:
+
+                      {
+                        "items": [
+                          {
+                            "summary": "Team Meeting",
+                            "start": { "dateTime": "2025-01-19T10:00:00-04:00" },
+                            "end": { "dateTime": "2025-01-19T11:00:00-04:00" }
+                          },
+                          {
+                            "summary": "Lunch with Alex",
+                            "start": { "dateTime": "2025-01-19T12:30:00-04:00" },
+                            "end": { "dateTime": "2025-01-19T13:30:00-04:00" }
+                          }
+                        ]
+                      }
+
+
                       Generate a daily action plan with:  
                       - A prioritized task list including suggested times to work on each task, with breaks and stress-relief activities.  
 

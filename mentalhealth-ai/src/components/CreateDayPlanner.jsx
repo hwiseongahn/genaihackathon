@@ -13,13 +13,13 @@ import {
 import SpeechToText from "./SpeechToText";
 import Schedule from "./Schedule";
 
-const CreateDayPlanner = () => {
+const CreateDayPlanner = ({addTasksManually}) => {
   const {
     isListening,
     hasRecognitionSupport,
     startListening,
     stopListening,
-    textArray,
+    textArray
   } = useSpeechRecognition();
 
   const [plan, setPlan] = useState();
@@ -66,6 +66,7 @@ const CreateDayPlanner = () => {
                 createGeminiRequest={createGeminiRequest}
                 stopListening={stopListening}
                 textArray={textArray}
+                addTasksManually={addTasksManually}
               />
             </div>
           </div>
@@ -88,7 +89,7 @@ const CreateDayPlanner = () => {
           </div>
           {!loadingActionPlan ? (
             actionPlanTask && (
-              <div className="col-lg-5 col-12 mt-5"style={{ maxHeight: "550px", overflowY: "auto" }}>
+              <div className="col-lg-5 col-12 mt-5">
                 <div className="card">
                   <div className="card-body">
                     <h5 className="text-center mb-3">
