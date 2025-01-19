@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { getHobbiesData } from "../controllers/GeminiController";
 import { FaTrashAlt } from "react-icons/fa";
+import { BsStars } from "react-icons/bs";
 
 function HobbiesSurvey({
     hobby,
@@ -74,14 +75,12 @@ function HobbiesSurvey({
             <div className="row justify-content-center w-100">
                 <div className="col-md-6">
                     <div className="card">
-                        <div className="card-header bg-primary text-white">
-                            <h2 className="mb-0">De-Stressing Activities</h2>
-                        </div>
                         <div className="card-body">
+                        <h2 className="mb-0">De-Stressing Activities</h2>
                             <form onSubmit={handleAddHobby}>
                                 <div className="mb-3">
                                     <label htmlFor="hobby" className="form-label">
-                                        Add an activity to de-stress
+                                        Add an activity that relaxes you.
                                     </label>
                                     <input
                                         type="text"
@@ -93,15 +92,16 @@ function HobbiesSurvey({
                                         required
                                     />
                                 </div>
-                                <div className="d-flex justify-content-between">
-                                    <button type="submit" className="btn btn-primary col-md-8">
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <button type="submit" className="btn btn-primary col-md-4">
                                         Add Hobby
                                     </button>
                                     <button
                                     onClick={() => SuggestHobby(hobbies, setRawResponse)}
-                                    className="btn btn-primary col-md-3"
+                                    className="btn btn-primary col-md-7"
                                     >
                                         Find Hobby Suggestions!
+                                        <BsStars className="ml-2"/>
                                     </button>
                                 </div>
                             </form>

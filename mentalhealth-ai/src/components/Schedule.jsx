@@ -1,5 +1,5 @@
 import React from "react";
-import { FaMagic } from "react-icons/fa";
+import { BsStars } from "react-icons/bs";
 const Schedule = ({ plan, generateActionPlan }) => {
   return (
     <div className="card">
@@ -44,7 +44,7 @@ const Schedule = ({ plan, generateActionPlan }) => {
                       className="btn btn-outline-dark btn-block"
                       onClick={() => generateActionPlan(task)}
                     >
-                      Plan <FaMagic />
+                      Plan <BsStars />
                     </button>
                   )}
                 </div>
