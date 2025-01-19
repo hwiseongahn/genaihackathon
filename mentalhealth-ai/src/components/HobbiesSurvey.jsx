@@ -9,7 +9,6 @@ function HobbiesSurvey({
     setHobby,
     setHobbies,
     categorizedHobbies,
-    setCategorizedHobbies,
     setShowHobbies,
     setShowDayPlanner,
     setFilteredHobbies,
