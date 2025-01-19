@@ -100,7 +100,7 @@ return (
                                         required
                                     />
                                 </div>
-                            </div>
+                            </div> 
                             <motion.button type="submit" className="btn btn-primary w-25"
                                     whileHover={{ scale: 1.1, rotate:0 }}
                                     whileTap={{
